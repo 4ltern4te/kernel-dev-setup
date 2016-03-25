@@ -1,0 +1,19 @@
+---
+
+## Configuration setup
+
+- name: "Vim configuration"
+  copy: src=vimrc dest="{{ home_directory }}/.vimrc" mode=0600 owner={{ local_user }} group={{ local_user }}
+
+- name: "Create Vim plugin dir"
+  file: path="{{ home_directory }}/.vim/plugin" state=directory owner={{ local_user }} group={{ local_user }} mode=0700
+
+- name: "Vim Plugins"
+  copy: src=linuxsty.vim dest="{{ home_directory }}/.vim/plugin/linuxsty.vim" mode=0600 owner={{ local_user }} group={{ local_user }}
+
+- name: ".bashrc configuration"
+  copy: src=bashrc dest="{{ home_directory}}/.bashrc" mode=0600 owner={{ local_user }} group={{ local_user }}
+
+- name: "Alpine MTA Client"
+  template: src=pinerc dest="{{ home_directory}}/.pinerc" mode=0600 owner={{ local_user }} group={{ local_user }}
+

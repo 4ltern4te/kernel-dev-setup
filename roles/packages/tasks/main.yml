@@ -1,0 +1,63 @@
+---
+
+## These packages are not all necessary to compile a kernel and or module
+## but most 
+
+## Fedora
+
+## yum groups list | grep -i devel
+## gcc, make, ctags
+    
+- name: "@C Development Tools and Libraries"
+  dnf: name="@C Development Tools and Libraries" state=present
+    
+## git and other helpful things
+- name: "@Development Tools"
+  dnf: name="@Development Tools" state=present
+
+- name: "Installing packages required for Linux Kernel Development"
+  dnf: name={{ item }} state=present
+  with_items:
+    
+    - kernel-headers
+    - kernel-devel
+
+    - ncurses-devel
+    - openssl-devel
+    
+    ## helpful
+    - python
+    - libselinux-python
+    - python-pip
+    - vim-enhanced
+    - alpine
+    
+  when: ansible_distribution == "Fedora"
+
+## Debian
+
+- name: "Installing packages required for Linux Kernel Development"
+  yum: name={{ item }} state=present
+  with_items:
+    - libncurses5-dev
+    - gcc
+    - make
+    - git
+    - exuberant-ctags
+    - bc
+    - libssl-dev
+    - alpine
+    - libselinux-python
+  when: ansible_os_family == "Debian"
+
+- name: "Create git dir"
+  file: path={{ home_directory }}/git/ state=directory owner={{ local_user }} group={{ local_user }} mode=0700
+
+- name: "Create linux-stable dir to git clone to"
+  file: path={{ kernel_dir }} state=directory owner={{ local_user }} group={{ local_user }} mode=0700
+
+## git should be installed after the above runs
+- name: "Pull Latest Stable Kernel Sources"
+  git: repo=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git dest={{ kernel_dir }} accept_hostkey=True
+
+

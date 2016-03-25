@@ -1,0 +1,24 @@
+--- 
+
+- hosts: kernel-dev23
+  sudo: yes
+  vars: 
+    local_user: "{{ lookup('env','USER') }}"
+    home_directory: "{{ lookup('env', 'HOME') }}"
+    
+    ## Alpine MTA template configuration
+    alpine_smtp_server: "mail.example.net:465/user=user@example.com/ssl"
+    alpine_user_domain: "example.com"
+    alpine_incoming_folders: "{mail.example.net:993/user=user@example.com/ssl}INBOX"
+ 
+    ## directory setup
+    git_dir: "{{ home_directory }}/git/"
+    git_top_dir: "{{ git_dir }}/linux-kernel/"
+    kernel_module_directory: "{{ git_top_dir }}/custom-kernel-modules/"
+    kernel_dir: "{{ git_top_dir }}/linux-stable/"
+ 
+  roles:
+    - packages
+    - configuration
+    - basic_setup
+ 

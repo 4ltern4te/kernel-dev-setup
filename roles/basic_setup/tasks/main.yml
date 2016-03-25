@@ -1,0 +1,10 @@
+---
+
+- name: "Create module directory"
+  file: path={{ kernel_module_directory }} state=directory mode=0700 owner={{ local_user }} group={{ local_user }}
+
+- name: "Skeleton Kernel module"
+  copy: src=hello_world.c dest={{ kernel_module_directory }} mode=0600 owner={{ local_user }} group={{ local_user }}
+
+- name: "Kernel module skeleton Makefile"
+  copy: src=Makefile dest={{ kernel_module_directory }} mode=0600 owner={{ local_user }} group={{ local_user }}
