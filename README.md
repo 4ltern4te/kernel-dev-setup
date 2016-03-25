@@ -26,23 +26,23 @@ Multiple distro additions welcome.
 ## Roadmap
 
 Git config
-	* setup a git config to be deployed
+* setup a git config to be deployed
 
 
 IDE Setup
-	* Graphical IDE
+* Graphical IDE
 	* Scripting / Expansion support for syntax checking etc
 
 
 Vim Improvement
-	* Key bindings for syntax checking
-	* Key bindings for other hacks
+* Key bindings for syntax checking
+* Key bindings for other hacks
 
 
 Alpine / MTA Improvement
-	* email templates for patches etc
+* email templates for patches etc
 
 
 Setup SMTP server with settings to not alter attachments to base64
-    * Ansible this too
+* Ansible this too
 
